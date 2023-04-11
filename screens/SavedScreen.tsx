@@ -26,7 +26,6 @@ export default function SavedScreen({ navigation }: any) {
   async function GetLocations() {
     const locations = await AsyncStorage.getItem('locations')
     let locationsData = JSON.parse(locations as string)
-    console.log(locationsData)
 
     if (locationsData !== null) {
       setSavedLocations(locationsData)
@@ -53,6 +52,7 @@ export default function SavedScreen({ navigation }: any) {
           {item.country} {item.region}
         </Text>
         <TouchableOpacity
+          style={{ padding: 5 }}
           onPress={async () => {
             setSavedLocations([])
 
@@ -92,11 +92,16 @@ export default function SavedScreen({ navigation }: any) {
           renderItem={RenderLocations}
         />
       ) : (
-        <MaterialCommunityIcons
-          name="sleep"
-          size={150}
-          color={colors.ButtonPale}
-        />
+        <>
+          <Text style={styles.sleepyText}>
+            You can save locations here from the main page
+          </Text>
+          <MaterialCommunityIcons
+            name="sleep"
+            size={150}
+            color={colors.ButtonPale}
+          />
+        </>
       )}
     </View>
   )
@@ -147,5 +152,10 @@ const styles = StyleSheet.create({
   itemBlockText: {
     color: colors.DarkText,
     fontSize: 24,
+  },
+  sleepyText: {
+    color: colors.ButtonPale,
+    fontSize: 26,
+    fontWeight: '700',
   },
 })

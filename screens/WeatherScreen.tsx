@@ -47,7 +47,6 @@ export default function WeatherScreen({ route, navigation }: any) {
       `https://api.openweathermap.org/data/2.5/forecast?lat=${X}&lon=${Y}&appid=${apiKey}`
     )
     const dataForecast = await responseForecast.json()
-    console.log(dataForecast)
 
     setForecast(dataForecast)
     setLoading(false)
@@ -74,12 +73,6 @@ export default function WeatherScreen({ route, navigation }: any) {
       return false
     }
     GetWeatherByXY(dataCity[0].lat, dataCity[0].lon)
-
-    // const responseWeather = await fetch(
-    //   `https://api.openweathermap.org/data/2.5/weather?lat=${dataCity[0].lat}&lon=${dataCity[0].lon}&appid=${apiKey}`
-    // )
-    // const dataWeather = await responseWeather.json()
-    // console.log(dataForecast)
   }
 
   function RenderForecastItem({ item }: any) {
@@ -111,7 +104,6 @@ export default function WeatherScreen({ route, navigation }: any) {
     if (isFocused) {
       if (route.params) {
         setCity(route.params.region)
-        // console.log('|||', route.params)
         GetWeatherByXY(route.params.coord.lat, route.params.coord.lon)
       } else {
         if (city) {
@@ -269,7 +261,6 @@ export default function WeatherScreen({ route, navigation }: any) {
                   disabled={buttonDissabled}
                   onPress={async () => {
                     const locations = await AsyncStorage.getItem('locations')
-                    // console.log(locations)
 
                     let locationsData = JSON.parse(locations as string)
 
