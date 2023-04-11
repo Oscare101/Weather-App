@@ -1,20 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler'
+import React, { useState } from 'react'
+import { Easing } from 'react-native'
+
+import { NavigationContainer } from '@react-navigation/native'
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack'
+
+import WeatherScreen from './screens/WeatherScreen'
+import SavedScreen from './screens/SavedScreen'
+
+const Stack = createStackNavigator()
+
+const timingConfig = {
+  animation: 'timing',
+  config: {
+    duration: 100,
+    easing: Easing.linear,
+  },
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            //   headerLeft: () => null,
+          }}
+          name="weather"
+          component={WeatherScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            headerLeft: () => null,
+            animationEnabled: true,
+            gestureDirection: 'horizontal',
+            gestureEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            // transitionSpec: {
+            //   open: timingConfig,
+            //   close: timingConfig,
+            // }
+          }}
+          name="saved"
+          component={SavedScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
